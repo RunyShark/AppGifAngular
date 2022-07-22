@@ -1,4 +1,14 @@
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis corporis,
-quos repellendus odit soluta, fugiat porro quae reprehenderit tempora sapiente
-eveniet dignissimos quas. Voluptate ipsum praesentium quae, autem consequatur
-libero.
+<div class="row">
+  <div *ngFor="let item of resultados" class="col-md-4 col-sm-6">
+    <div class="card">
+      <img
+        [src]="item.images.downsized_medium.url"
+        alt="item.title"
+        class="card-img-top"
+      />
+      <div class="card-body">
+        <p class="card-text">{{ item.title }}</p>
+      </div>
+    </div>
+  </div>
+</div>
