@@ -5,7 +5,6 @@ import { SearchGifsResponse, Gif } from '../interfaces/interfaces.gisf';
   providedIn: 'root',
 })
 export class GifsServiceService {
-  private _apiKey = 'A4PmOMjUf8ljnQweISoGBz47Z5ZBIsCT';
   private _historial: string[] = [];
 
   public results: Gif[] = [];
@@ -14,13 +13,18 @@ export class GifsServiceService {
     return [...this._historial];
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this._historial = JSON.parse(localStorage.getItem('historia')!) || [];
+    this.results = JSON.parse(localStorage.getItem('card')!) || [];
+  }
 
   buscarGifHistoria(query: string) {
     query = query.trim().toLowerCase();
     if (!this._historial.includes(query)) {
       this._historial.unshift(query);
       this._historial = this._historial.splice(0, 10);
+
+      localStorage.setItem('historia', JSON.stringify(this._historial));
     }
 
     this.http
@@ -29,6 +33,7 @@ export class GifsServiceService {
       )
       .subscribe((reps) => {
         this.results = reps.data;
+        localStorage.setItem('card', JSON.stringify(reps.data));
       });
   }
 }
