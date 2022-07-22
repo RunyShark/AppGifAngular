@@ -11,7 +11,9 @@ export class GifsServiceService {
   }
 
   buscarGifHistoria(query: string) {
-    this._historial.unshift(query);
-    console.log(this._historial);
+    if (!this._historial.includes(query)) {
+      this._historial.unshift(query);
+      this._historial = this._historial.splice(0, 10);
+    }
   }
 }

@@ -11,7 +11,7 @@ export class SearchComponent {
 
   search() {
     const valir = this.txtSearch.nativeElement.value;
-
+    if (valir.trim().length === 0) return;
     this.gifsService.buscarGifHistoria(valir);
 
     this.txtSearch.nativeElement.value = '';
